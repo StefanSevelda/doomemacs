@@ -30,7 +30,7 @@ directives. By default, this only recognizes C directives.")
   :preface
   (setq evil-ex-search-vim-style-regexp t
         evil-ex-visual-char-range t  ; column range for ex commands
-        evil-mode-line-format 'nil
+        evil-mode-line-format nil
         ;; more vim-like behavior
         evil-symbol-word-search t
         ;; if the current state is obvious from the cursor's color/shape, then

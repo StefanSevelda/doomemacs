@@ -1,0 +1,1 @@
+/Users/stefansevelda/.config/emacs/.emacs.d
