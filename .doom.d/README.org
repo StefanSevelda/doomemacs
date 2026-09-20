@@ -1,0 +1,44 @@
+#+title: .doom.d — the tracked DOOMDIR
+
+This directory is =$DOOMDIR=: the personal Doom configuration described in
+[[file:../CLAUDE.md][CLAUDE.md]] (=config.el=, =init.el=, =packages.el=,
+=modules/=). Tracking it *inside* this fork is what lets one =git clone= of
+this repository bring both the framework and the configuration to a new
+machine.
+
+* How a machine gets this
+
+The [[https://github.com/StefanSevelda/local-setup][local-setup]] repository owns machine setup:
+
+- =repos.json= clones this fork to =~/.config/emacs= (the =EMACSDIR=).
+- The home-manager module =nix/modules/doom-emacs.nix= exports
+  =DOOMDIR=~/.config/emacs/.doom.d=, puts =~/.config/emacs/bin= (the =doom=
+  CLI) on =PATH=, and manages the =modules/tools/claude-multi= symlink (see
+  below).
+- Emacs itself still comes from Homebrew (=brew "emacs"= in the Brewfile).
+
+After clone + =hm-switch=, run =doom sync= once.
+
+* What is deliberately NOT tracked here
+
+- =modules/tools/claude-multi= — a symlink managed by home-manager on each
+  =hm-switch=. It points at the working copy
+  =~/projects/claude-multi-agent.el= when one exists, otherwise at the Nix
+  build pinned by local-setup's =flake.lock=. Machine state, so it is
+  gitignored.
+- =custom.el= — Doom points =custom-file= here; it accumulates machine-local
+  state and is gitignored.
+
+* One-time migration (existing machine)
+
+On the machine that already carries the configuration, =.doom.d/= exists but
+is untracked. Commit it once:
+
+#+begin_src shell
+cd ~/.config/emacs
+git add .doom.d
+git commit -m "Track DOOMDIR in the fork"
+git push
+#+end_src
+
+The gitignore rules above keep the symlink and =custom.el= out of that add.
