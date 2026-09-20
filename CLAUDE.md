@@ -4,12 +4,22 @@ This repository is a [Doom Emacs](https://github.com/doomemacs/doomemacs) config
 
 ## Repository Structure
 
-- **`.doom.d/`** — Personal configuration (this is `$DOOMDIR`)
+- **`.doom.d/`** — Personal configuration (this is `$DOOMDIR`; see `.doom.d/README.org`)
   - `config.el` — Main configuration: keybindings, package settings, custom functions
   - `init.el` — Doom module declarations (`:lang`, `:tools`, `:ui`, etc.)
   - `packages.el` — Extra package declarations (`package!`)
   - `modules/` — Custom Doom modules (e.g., `editor/evil/config.el`)
+  - `modules/tools/claude-multi` — gitignored symlink to claude-multi-agent.el,
+    managed by local-setup's home-manager module (`nix/modules/doom-emacs.nix`)
 - **`modules/`** (repo root) — Doom's built-in modules (upstream)
+
+## Machine Setup
+
+Machines install this setup via the [local-setup](https://github.com/StefanSevelda/local-setup)
+repository: `repos.json` clones this fork to `~/.config/emacs`, and the
+home-manager module `nix/modules/doom-emacs.nix` sets `DOOMDIR`, puts the
+`doom` CLI on `PATH`, and links the claude-multi module. See local-setup's
+`docs/doom-emacs.md` for the full flow.
 
 ## Conventions
 
